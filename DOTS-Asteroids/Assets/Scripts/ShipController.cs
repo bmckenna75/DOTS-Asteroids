@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Transforms;
+using Unity.Collections;
 using UnityEngine;
+using Unity.Mathematics;
 
 public class ShipController : MonoBehaviour
 {
@@ -18,11 +20,17 @@ public class ShipController : MonoBehaviour
     public float buffer;
 
     public GameObject bulletPre;
+    private Entity prefab;
     public Transform bulletSpawn;
+    public int bulletCount;
 
     EntityManager manager;
+    bool shootMany;
+    public GameObject RotateSlave;
 
-
+    public NativeArray<Entity> bullets;
+    [SerializeField]
+    public List<Entity> entities;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +45,16 @@ public class ShipController : MonoBehaviour
         bottomConstraint = camera.ScreenToWorldPoint(new Vector3(0f, 0f, distanceZ)).y;
         buffer = 1.2f;
 
+        prefab = Unity.Entities.GameObjectConversionUtility.ConvertGameObjectHierarchy(bulletPre, World.Active);
         manager = World.Active.EntityManager;
+        bulletCount = 50;
+        shootMany = false;
+        entities = new List<Entity>();
+    }
+
+    public List<Entity> GetEntities()
+    {
+        return entities;
     }
 
     // Update is called once per frame
@@ -45,6 +62,23 @@ public class ShipController : MonoBehaviour
     {
         MoveShip();
         KeepInBounds();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ShootBullet();
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (shootMany)
+            {
+                shootMany = false;
+                return;
+            }
+            else
+            {
+                shootMany = true;
+            }
+        }
     }
 
     private void MoveShip()
@@ -71,9 +105,36 @@ public class ShipController : MonoBehaviour
 
     private void ShootBullet()
     {
-        //impliment functions once nick finishes 
-        Entity bullet = manager.Instantiate(bulletPre);
-        manager.SetComponentData(bullet, new Translation { Value = bulletSpawn.position});
+        if (shootMany)
+        {
+            Vector3 tempRot = transform.rotation.eulerAngles;
+            int max = bulletCount / 2;
+            int min = -max;
+            int index = 0;
+
+            bullets = new NativeArray<Entity>(bulletCount, Allocator.Temp);
+            manager.Instantiate(prefab, bullets);
+
+            for (int i = min; i < max; i++)
+            {
+                tempRot.z = (transform.rotation.z + bulletCount/360 * i) % 360;
+                RotateSlave.transform.rotation = Quaternion.Euler(tempRot) * Quaternion.Euler(transform.up);
+
+                manager.SetComponentData<Translation>(bullets[index], new Translation { Value = bulletSpawn.position});
+                manager.SetComponentData<BulletData>(bullets[index], new BulletData { velocity = (RotateSlave.transform.up * Time.deltaTime * 300), rotation = Quaternion.Euler(tempRot) });
+                entities.Add(bullets[index]);
+                index++;
+            }
+
+            bullets.Dispose();
+        }
+        else
+        {
+            Entity bullet = manager.Instantiate(prefab);
+            entities.Add(bullet);
+            manager.SetComponentData<Translation>(bullet, new Translation { Value = bulletSpawn.position });
+            manager.SetComponentData<BulletData>(bullet, new BulletData { velocity = (transform.up * Time.deltaTime * 300), rotation = transform.rotation });
+        }
     }
 
     private void KeepInBounds()
@@ -94,17 +155,5 @@ public class ShipController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, topConstraint + (buffer/2), transform.position.z);
         }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        // Draws a blue line from this transform to the target
-        Gizmos.color = Color.white;
-        Gizmos.DrawLine(transform.position, transform.up * 10);   
-    }
-
-    private void moveThing()
-    {
-        bulletSpawn.transform.position = new Vector3();
     }
 }

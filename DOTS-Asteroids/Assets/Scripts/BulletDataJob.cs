@@ -22,26 +22,19 @@ public class BulletDataJob : JobComponentSystem
     {
         // Add fields here that your job needs to do its work.
         // For example,
-        //    public float deltaTime;
-        
-        
-        public void Execute(ref Translation translation, [ReadOnly] ref Rotation rotation)
+        public float deltaTime;
+
+        public void Execute(ref Translation trans, ref Rotation rot, ref BulletData bulletdata)
         {
             // Implement the work to perform for each entity here.
             // You should only access data that is local or that is a
-            // field on this job. Note that the 'rotation' parameter is
-            // marked as [ReadOnly], which means it cannot be modified,
-            // but allows this job to run in parallel with other jobs
-            // that want to read Rotation component data.
-            // For example,
+            // field on this job.
             //     translation.Value += mul(rotation.Value, new float3(0, 0, 1)) * deltaTime;
+            trans.Value.x = trans.Value.x + bulletdata.velocity.x * deltaTime;
+            trans.Value.y = trans.Value.y + bulletdata.velocity.y * deltaTime;
+            rot.Value = bulletdata.rotation;
             
-            
-        }
 
-        public void Execute(ref Translation c0, ref Rotation c1, ref BulletData c2)
-        {
-            throw new System.NotImplementedException();
         }
     }
     
@@ -52,7 +45,7 @@ public class BulletDataJob : JobComponentSystem
         // Assign values to the fields on your job here, so that it has
         // everything it needs to do its work when it runs later.
         // For example,
-        //     job.deltaTime = UnityEngine.Time.deltaTime;
+        job.deltaTime = UnityEngine.Time.deltaTime;
         
         
         // Now that the job is set up, schedule it to be run. 
