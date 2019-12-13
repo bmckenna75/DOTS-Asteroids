@@ -1,17 +1,14 @@
 /target:library
 /nowarn:0169
-/out:Temp/Unity.Entities.Properties.dll
+/out:Temp/Unity.Jobs.dll
 /unsafe
 /debug:portable
 /optimize-
 /nostdlib+
 /preferreduilang:en-US
 /langversion:latest
-/reference:Library/ScriptAssemblies/Unity.Entities.dll
 /reference:Library/ScriptAssemblies/Unity.Mathematics.dll
-/reference:Library/ScriptAssemblies/Unity.Properties.dll
-/reference:Library/ScriptAssemblies/Unity.Jobs.dll
-/reference:Library/ScriptAssemblies/Unity.Transforms.dll
+/reference:Library/ScriptAssemblies/Unity.Collections.dll
 /reference:Library/ScriptAssemblies/UnityEditor.UI.dll
 /reference:Library/ScriptAssemblies/UnityEngine.UI.dll
 /reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll"
@@ -78,9 +75,12 @@
 /reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll"
 /reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 /reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll"
-/reference:"C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll"
-/reference:C:/Users/Lei/Documents/Git/DOTS-Asteroids/DOTS-Asteroids/Library/PackageCache/com.unity.burst@1.1.2/Unity.Burst.Unsafe.dll
-/reference:C:/Users/Lei/Documents/Git/DOTS-Asteroids/DOTS-Asteroids/Library/PackageCache/com.unity.collections@0.1.1-preview/System.Runtime.CompilerServices.Unsafe.dll
+/reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll"
+/reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll"
+/reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll"
+/reference:"C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll"
+/reference:C:/Users/pixel/Documents/GitHub/DOTS-Asteroids/DOTS-Asteroids/Library/PackageCache/com.unity.burst@1.1.2/Unity.Burst.Unsafe.dll
+/reference:C:/Users/pixel/Documents/GitHub/DOTS-Asteroids/DOTS-Asteroids/Library/PackageCache/com.unity.collections@0.1.1-preview/System.Runtime.CompilerServices.Unsafe.dll
 /reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll"
 /reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/Microsoft.Win32.Primitives.dll"
 /reference:"C:/Program Files/Unity/Hub/Editor/2019.2.5f1/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.AppContext.dll"
@@ -291,5 +291,6 @@
 /define:ENABLE_TIMELINE
 /define:CSHARP_7_OR_LATER
 /define:CSHARP_7_3_OR_NEWER
-C:\Users\Lei\Documents\Git\DOTS-Asteroids\DOTS-Asteroids\Library\PackageCache\com.unity.entities@0.1.1-preview\Unity.Entities.Properties\DynamicBufferContainer.cs
-C:\Users\Lei\Documents\Git\DOTS-Asteroids\DOTS-Asteroids\Library\PackageCache\com.unity.entities@0.1.1-preview\Unity.Entities.Properties\EntityContainer.cs
+C:\Users\pixel\Documents\GitHub\DOTS-Asteroids\DOTS-Asteroids\Library\PackageCache\com.unity.jobs@0.1.1-preview\Unity.Jobs\IJobParallelForBatch.cs
+C:\Users\pixel\Documents\GitHub\DOTS-Asteroids\DOTS-Asteroids\Library\PackageCache\com.unity.jobs@0.1.1-preview\Unity.Jobs\IJobParallelForDefer.cs
+C:\Users\pixel\Documents\GitHub\DOTS-Asteroids\DOTS-Asteroids\Library\PackageCache\com.unity.jobs@0.1.1-preview\Unity.Jobs\IJobParallelForFilter.cs
