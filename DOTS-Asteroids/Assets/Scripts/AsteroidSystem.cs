@@ -14,7 +14,7 @@ public class AsteroidSystem : JobComponentSystem
     struct AsteroidSystemJob : IJobForEach<Translation, Rotation, AsteroidData>
     {
         public float time;
-
+        //uses jobs to push asteroids across the screen and loop them around
         public void Execute(ref Translation translation, ref Rotation rotation, ref AsteroidData asteroidData)
         {
             if (translation.Value.x <= -11)

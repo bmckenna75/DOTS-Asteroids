@@ -80,7 +80,7 @@ public class ShipController : MonoBehaviour
             }
         }
     }
-
+    //applys forces to the ship's ridged body
     private void MoveShip()
     {
         if (Input.GetKey(KeyCode.W))
@@ -102,9 +102,10 @@ public class ShipController : MonoBehaviour
             transform.Rotate(-Vector3.forward * Time.deltaTime * 100);
         }
     }
-
+    //instanciates bullets
     private void ShootBullet()
     {
+        //instanciates a lot of bullets
         if (shootMany)
         {
             Vector3 tempRot = transform.rotation.eulerAngles;
@@ -128,6 +129,7 @@ public class ShipController : MonoBehaviour
 
             bullets.Dispose();
         }
+        //instanciates a normal amount of bullets
         else
         {
             Entity bullet = manager.Instantiate(prefab);
@@ -136,7 +138,7 @@ public class ShipController : MonoBehaviour
             manager.SetComponentData<BulletData>(bullet, new BulletData { velocity = (transform.up * Time.deltaTime * 300), rotation = transform.rotation });
         }
     }
-
+    //loops the ship on the screen
     private void KeepInBounds()
     {
         if (transform.position.x <= leftConstraint - buffer)

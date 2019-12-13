@@ -23,7 +23,7 @@ public class BulletDataJob : JobComponentSystem
         // Add fields here that your job needs to do its work.
         // For example,
         public float deltaTime;
-
+        //pushes bullets forwrard from their original position
         public void Execute(ref Translation trans, ref Rotation rot, ref BulletData bulletdata)
         {
             // Implement the work to perform for each entity here.

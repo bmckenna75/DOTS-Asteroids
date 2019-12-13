@@ -62,6 +62,7 @@ public class AsteroidManager : MonoBehaviour
         manager.SetComponentData(entities[entities.Count - 1], new Rotation { Value = Quaternion.Euler(90, 0, 0) });
     }
 
+    //Master method to make things look nicer
     void ManageCollisions()
     {
         CollideWithBullet();
