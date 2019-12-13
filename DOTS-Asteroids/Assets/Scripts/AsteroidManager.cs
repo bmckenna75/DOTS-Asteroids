@@ -48,14 +48,15 @@ public class AsteroidManager : MonoBehaviour
         ManageCollisions();
     }
 
+    //this method spawns asteroids in a random location
     void SpawnAsteroidECS()
     {
         entities.Add(manager.Instantiate(asteroidPrefab));
 
         manager.SetComponentData(entities[entities.Count - 1], new AsteroidData
         {
-            position = new Vector3(Random.value * 19.9f - 10.0f, Random.value * 10.0f - 5.0f, 0),
-            velocity = new Vector3(Random.value * 19.9f - 10.0f, Random.value * 10.0f - 5.0f, 0)
+            position = new Vector3(Random.value * 5.0f - 10.0f, Random.value * 5 - 5.0f, 0),
+            velocity = new Vector3(Random.value * 5, Random.value * 5, 0)
         });
         manager.SetComponentData(entities[entities.Count - 1], new Translation { Value = new Vector3(Random.value * 19.9f - 10.0f, Random.value * 10.0f - 5.0f, 0) });
         manager.SetComponentData(entities[entities.Count - 1], new Rotation { Value = Quaternion.Euler(90, 0, 0) });
@@ -67,11 +68,12 @@ public class AsteroidManager : MonoBehaviour
         CollideWithShip();
     }
 
+    //checks for collision with the ship and asteroid
     void CollideWithShip()
     {
         for (int i = 0; i < entities.Count; i++)
         {
-            if ((ship.transform.position - new Vector3(manager.GetComponentData<Translation>(entities[i]).Value.x, manager.GetComponentData<Translation>(entities[i]).Value.y, 0)).magnitude < 4)
+            if ((ship.transform.position - new Vector3(manager.GetComponentData<Translation>(entities[i]).Value.x, manager.GetComponentData<Translation>(entities[i]).Value.y, 0)).magnitude < 2)
             {
                 if (ship != null)
                 {
@@ -81,6 +83,7 @@ public class AsteroidManager : MonoBehaviour
         }
     }
 
+    //checks bullet radii vs asteroids and destroys the asteroids on collison
     void CollideWithBullet()
     {
         List<Entity> list = ship.GetComponent<ShipController>().GetEntities();
