@@ -9,5 +9,4 @@ public struct AsteroidData : IComponentData
 {
     public Vector3 position;
     public Quaternion rotation;
-
 }
